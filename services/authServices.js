@@ -1,12 +1,9 @@
-const { getUsers } = require("../models/userModel");
+import { getUsers } from "../models/userModel.js";
 
-const authenticateUser = (username, password) => {
-  const userFound = getUsers().find(
+export const authenticateUser = (username, password) => {
+  return getUsers().find(
     (user) => user.username === username && user.password === password
-  );
-  return userFound
+  )
     ? { success: true, message: "Login successful" }
     : { success: false, message: "Invalid username or password" };
 };
-
-module.exports = { authenticateUser };

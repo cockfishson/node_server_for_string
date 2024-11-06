@@ -1,12 +1,14 @@
-const { authenticateUser } = require("../services/authServices");
+import { authenticateUser } from "../services/authServices.js";
 
-exports.login = (request, responce) => {
-  const { username, password } = request.body;
-  const result = authenticateUser(username, password);
+export class AuthController {
+  static login(request, response) {
+    const { username, password } = request.body;
+    const result = authenticateUser(username, password);
 
-  if (result.success) {
-    responce.status(200).json(result);
-  } else {
-    responce.status(401).json(result);
+    if (result.success) {
+      response.status(200).json(result);
+    } else {
+      response.status(401).json(result);
+    }
   }
-};
+}
