@@ -1,4 +1,4 @@
-const cardsData = [
+export const cardsData = [
   {
     title: "Spring Boot",
     description:
@@ -36,5 +36,3 @@ const cardsData = [
     image: "spring_security.svg",
   },
 ];
-
-export const getCards = () => cardsData;

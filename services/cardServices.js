@@ -1,7 +1,7 @@
-import { getCards } from "../models/cardModel.js";
+import { cardsData } from "../models/cardModel.js";
 
 export const resultingCards = (query) => {
-  let cards = getCards();
+  let cards = cardsData;
   if (query.length > 1) {
     cards = cards.filter(
       (card) =>
