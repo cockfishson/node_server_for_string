@@ -37,6 +37,4 @@ const cardsData = [
   },
 ];
 
-const getCards = () => cardsData;
-
-module.exports = { getCards };
+export const getCards = () => cardsData;

@@ -3,6 +3,4 @@ const users = [
   { username: "ZenoxGr", password: "labko__" },
 ];
 
-const getUsers = () => users;
-
-module.exports = { getUsers };
+export const getUsers = () => users;

@@ -1,8 +1,7 @@
-const { getCards } = require("../models/cardModel");
+import { getCards } from "../models/cardModel.js";
 
-const resultingCards = (query) => {
+export const resultingCards = (query) => {
   let cards = getCards();
-
   if (query.length > 1) {
     cards = cards.filter(
       (card) =>
@@ -13,7 +12,7 @@ const resultingCards = (query) => {
   return cards;
 };
 
-const setImageUrls = (request, cardsCollection) => {
+export const setImageUrls = (request, cardsCollection) => {
   return cardsCollection.map((card) => ({
     ...card,
     image: `${request.protocol}://${request.get("host")}/card_icons/${
@@ -21,5 +20,3 @@ const setImageUrls = (request, cardsCollection) => {
     }`,
   }));
 };
-
-module.exports = { resultingCards, setImageUrls };
