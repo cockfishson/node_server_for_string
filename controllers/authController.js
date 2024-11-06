@@ -1,9 +1,9 @@
-import { authenticateUser } from "../services/authServices.js";
+import { authServices } from "../services/authServices.js";
 
 export class AuthController {
   static login(request, response) {
     const { username, password } = request.body;
-    const result = authenticateUser(username, password);
+    const result = authServices.authenticateUser(username, password);
 
     if (result.success) {
       response.status(200).json(result);
