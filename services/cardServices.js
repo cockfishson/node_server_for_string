@@ -1,4 +1,6 @@
 import { cardsData } from "../models/cardModel.js";
+import { CustomError } from "../helpers/utils/error_handlers/customResponseError.js";
+import { HttpStatus } from "../helpers/utils/error_handlers/responseErrorCodes.js";
 
 export class cardServices {
   static resultingCards = (query) => {
@@ -9,6 +11,9 @@ export class cardServices {
           card.title.toLowerCase().includes(query.toLowerCase()) ||
           card.description.toLowerCase().includes(query.toLowerCase())
       );
+    }
+    if (cards.length === 0) {
+      throw new CustomError(HttpStatus.NOT_FOUND, "No matching cards found");
     }
     return cards;
   };
