@@ -1,11 +1,18 @@
 import { users } from "../models/userModel.js";
+import { CustomError } from "../helpers/utils/error_handlers/customResponseError.js";
+import { HttpStatus } from "../helpers/utils/error_handlers/responseErrorCodes.js";
 
 export class authServices {
   static authenticateUser = (username, password) => {
-    return users.find(
+    const user = users.find(
       (user) => user.username === username && user.password === password
-    )
-      ? { success: true, message: "Login successful" }
-      : { success: false, message: "Invalid username or password" };
+    );
+    if (!user) {
+      throw new CustomError(
+        HttpStatus.UNAUTHORIZED,
+        "Invalid username or password"
+      );
+    }
+    return user;
   };
 }
