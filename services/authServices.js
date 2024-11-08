@@ -1,6 +1,6 @@
 import { users } from "../models/userModel.js";
-import { CustomError } from "../helpers/utils/error_handlers/customResponseError.js";
-import { HttpStatus } from "../helpers/utils/error_handlers/responseErrorCodes.js";
+import { CustomError } from "../helpers/error_handlers/customResponseError.js";
+import { HttpStatus } from "../helpers/error_handlers/responseErrorCodes.js";
 
 export class authServices {
   static authenticateUser = (username, password) => {

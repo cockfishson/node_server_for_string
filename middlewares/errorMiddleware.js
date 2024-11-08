@@ -1,4 +1,4 @@
-import { CustomError } from "../helpers/utils/error_handlers/customResponseError.js";
+import { CustomError } from "../helpers/error_handlers/customResponseError.js";
 
 export const errorMiddleware = (error, request, response, next) => {
   if (error instanceof CustomError) {
