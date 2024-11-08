@@ -1,5 +1,4 @@
 import { cardServices } from "../services/cardServices.js";
-import { CustomError } from "../helpers/error_handlers/customResponseError.js";
 
 export class CardController {
   static getCards(request, response, next) {
