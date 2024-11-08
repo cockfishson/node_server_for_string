@@ -1,5 +1,3 @@
-import { HttpStatus } from "./responseErrorCodes.js";
-
 export class CustomError extends Error {
   constructor(statusCode, message) {
     super(message);
