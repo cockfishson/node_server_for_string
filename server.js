@@ -20,5 +20,5 @@ app.use("/cards", cardRoutes);
 app.use(errorMiddleware);
 
 app.listen(PORT, () => {
-  console.log(`Address http://localhost:${PORT}`);
+  console.warn(process.env.ORIGIN);
 });
