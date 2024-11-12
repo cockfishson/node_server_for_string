@@ -7,8 +7,8 @@ export class cardServices {
           cardsData.filter(
             (card) =>
               card.title.toLowerCase().includes(query.toLowerCase()) ||
-              card.description.toLowerCase().includes(query.toLowerCase())
-          )
+              card.description.toLowerCase().includes(query.toLowerCase()),
+          ),
         )
       : this.addImageToCards(cardsData);
   };
