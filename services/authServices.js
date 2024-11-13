@@ -14,7 +14,7 @@ export class authServices {
     if (!user) {
       throw new CustomError(
         HttpStatus.UNAUTHORIZED,
-        "Invalid username or password"
+        "Invalid username or password",
       );
     }
 
@@ -22,13 +22,13 @@ export class authServices {
       { id: user.id },
       {
         expiresIn: "15m",
-      }
+      },
     );
     const refreshToken = JwtService.signRefresh(
       { id: user.id },
       {
         expiresIn: "7d",
-      }
+      },
     );
 
     return { user, accessToken, refreshToken };
@@ -39,7 +39,7 @@ export class authServices {
       { id: userId },
       {
         expiresIn: "15m",
-      }
+      },
     );
   };
 }
