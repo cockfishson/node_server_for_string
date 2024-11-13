@@ -1,45 +1,34 @@
-import jwt from "jsonwebtoken";
 import { authServices } from "../services/authServices.js";
+import { asyncMiddleware } from "../middlewares/asyncMiddleware.js";
+import { CustomError } from "../helpers/error_handlers/customResponseError.js";
+import { HttpStatus } from "../helpers/error_handlers/responseErrorCodes.js";
+import { JwtService } from "../services/jwtServices.js";
 
 export class AuthController {
-  static login(request, response, next) {
-    const { username, password } = request.body;
-    authServices
-      .authenticateUser(username, password)
-      .then((user) => {
-        const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-          expiresIn: "15m",
-        });
-        const refreshToken = jwt.sign(
-          { id: user.id },
-          process.env.JWT_SECRET_REFRESH,
-          { expiresIn: "7d" }
-        );
-
-        response.status(200).json({
-          success: true,
-          accessToken,
-          refreshToken,
-        });
-      })
-      .catch(next);
-  }
   // eslint-disable-next-line no-unused-vars
-  static refreshToken(request, response, next) {
-    const { refreshToken } = request.body;
-    if (!refreshToken) {
-      return response
-        .status(401)
-        .json({ message: "Refresh Token is required" });
-    }
-    jwt.verify(refreshToken, process.env.JWT_SECRET_REFRESH, (err, decoded) => {
-      if (err) {
-        return response.status(403).json({ message: "Invalid refresh token" });
-      }
-      const accessToken = jwt.sign({ id: decoded.id }, process.env.JWT_SECRET, {
-        expiresIn: "15m",
-      });
-      response.status(200).json({ accessToken });
+  static login = asyncMiddleware(async (req, res, next) => {
+    const { username, password } = req.body;
+    const { accessToken, refreshToken } = await authServices.authenticateUser(
+      username,
+      password,
+    );
+
+    res.status(200).json({
+      success: true,
+      accessToken,
+      refreshToken,
     });
-  }
+  });
+  static refreshToken = asyncMiddleware(async (req, res) => {
+    const { refreshToken } = req.body;
+    if (!refreshToken) {
+      throw new CustomError(
+        HttpStatus.UNAUTHORIZED,
+        "Refresh Token is required",
+      );
+    }
+    const decoded = JwtService.verifyRefresh(refreshToken);
+    const accessToken = authServices.generateAccessToken(decoded.id);
+    res.status(200).json({ accessToken });
+  });
 }

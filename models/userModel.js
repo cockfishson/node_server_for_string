@@ -31,7 +31,7 @@ const User = sequelize.define(
       allowNull: false,
     },
   },
-  { tableName: "users", timestamps: false }
+  { tableName: "users", timestamps: false },
 );
 
 export default User;

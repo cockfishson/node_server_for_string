@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 const PORT = 5000;
 
-app.use(cors({ origin: process.env.CLIENT_ORIGIN, credentials: true }));
+app.use(cors());
 app.use(express.json());
 
 app.use("/cards", authenticateJWT, cardRoutes);
@@ -27,7 +27,7 @@ sequelize
   .authenticate()
   .then(() => {
     console.warn(
-      "Connection to the database has been established successfully."
+      "Connection to the database has been established successfully.",
     );
     app.listen(PORT, () => {
       console.warn(`Server is running on http://localhost:${PORT}`);

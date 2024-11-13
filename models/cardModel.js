@@ -17,7 +17,7 @@ const Card = sequelize.define(
       allowNull: false,
     },
   },
-  { tableName: "cards", timestamps: false }
+  { tableName: "cards", timestamps: false },
 );
 
 export default Card;

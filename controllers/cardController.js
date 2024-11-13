@@ -1,11 +1,11 @@
 import { cardServices } from "../services/cardServices.js";
+import { asyncMiddleware } from "../middlewares/asyncMiddleware.js";
 
 export class CardController {
-  static getCards(request, response, next) {
-    const searchTerm = request.query.searchString;
-    cardServices
-      .resultingCards(searchTerm)
-      .then((selectedCards) => response.status(200).json(selectedCards))
-      .catch(next);
-  }
+  // eslint-disable-next-line no-unused-vars
+  static getCards = asyncMiddleware(async (req, res) => {
+    const searchTerm = req.query.searchString;
+    const selectedCards = await cardServices.resultingCards(searchTerm);
+    res.status(200).json(selectedCards);
+  });
 }

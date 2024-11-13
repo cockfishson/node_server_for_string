@@ -11,14 +11,10 @@ export class cardServices {
           ],
         }
       : {};
-
     const cards = await Card.findAll({ where: whereClause });
-    return this.addImageToCards(cards);
-  };
-
-  static addImageToCards = (cards) =>
-    cards.map((card) => ({
+    return cards.map((card) => ({
       ...card.toJSON(),
-      image: `${process.env.ORIGIN}/card_icons/${card.image}`,
+      image: `${process.env.ORIGIN}/card_icons/${card.get("image")}`,
     }));
+  };
 }
