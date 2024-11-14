@@ -21,13 +21,13 @@ export class authServices {
       { id: user.id },
       {
         expiresIn: "15m",
-      }
+      },
     );
     const refreshToken = JwtService.signRefresh(
       { id: user.id },
       {
         expiresIn: "7d",
-      }
+      },
     );
 
     return { user, accessToken, refreshToken };
@@ -38,7 +38,7 @@ export class authServices {
       { id: userId },
       {
         expiresIn: "15m",
-      }
+      },
     );
   };
 
@@ -48,7 +48,7 @@ export class authServices {
     confirmPassword,
     name,
     surname,
-    age
+    age,
   ) => {
     if (
       !username ||

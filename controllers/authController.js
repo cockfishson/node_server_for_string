@@ -10,7 +10,7 @@ export class AuthController {
     const { username, password } = req.body;
     const { accessToken, refreshToken } = await authServices.authenticateUser(
       username,
-      password
+      password,
     );
 
     res.status(200).json({
@@ -24,7 +24,7 @@ export class AuthController {
     if (!refreshToken) {
       throw new CustomError(
         HttpStatus.UNAUTHORIZED,
-        "Refresh Token is required"
+        "Refresh Token is required",
       );
     }
     const decoded = JwtService.verifyRefresh(refreshToken);
@@ -47,7 +47,7 @@ export class AuthController {
       confirmPassword,
       name,
       surname,
-      age
+      age,
     );
     res.status(200).json({ success: true });
   });
