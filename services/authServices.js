@@ -12,9 +12,10 @@ export class authServices {
       },
     });
     if (!user) {
-      throw new CustomError(HttpStatus.UNAUTHORIZED, {
-        username: "Invalid username or password",
-      });
+      throw new CustomError(
+        HttpStatus.UNAUTHORIZED,
+        "Invalid username or password",
+      );
     }
 
     const accessToken = JwtService.sign(
@@ -51,12 +52,9 @@ export class authServices {
     age,
   ) => {
     if (
-      !username ||
-      !password ||
-      !confirmPassword ||
-      !name ||
-      !surname ||
-      !age
+      [username, password, confirmPassword, name, surname, age].some(
+        (field) => !field,
+      )
     ) {
       throw new CustomError(HttpStatus.BAD_REQUEST, {
         form: "All fields are required",
