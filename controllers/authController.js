@@ -10,7 +10,7 @@ export class AuthController {
     const { username, password } = req.body;
     const { accessToken, refreshToken } = await authServices.authenticateUser(
       username,
-      password,
+      password
     );
 
     res.status(200).json({
@@ -24,11 +24,31 @@ export class AuthController {
     if (!refreshToken) {
       throw new CustomError(
         HttpStatus.UNAUTHORIZED,
-        "Refresh Token is required",
+        "Refresh Token is required"
       );
     }
     const decoded = JwtService.verifyRefresh(refreshToken);
     const accessToken = authServices.generateAccessToken(decoded.id);
     res.status(200).json({ accessToken });
+  });
+  // eslint-disable-next-line no-unused-vars
+  static signup = asyncMiddleware(async (req, res, next) => {
+    const {
+      username,
+      password,
+      confirmPassword,
+      firstName: name,
+      lastName: surname,
+      age,
+    } = req.body;
+    await authServices.signupUser(
+      username,
+      password,
+      confirmPassword,
+      name,
+      surname,
+      age
+    );
+    res.status(200).json({ success: true });
   });
 }
