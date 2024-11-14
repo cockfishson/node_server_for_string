@@ -4,7 +4,8 @@ export const errorMiddleware = (error, request, response, next) => {
   if (error instanceof CustomError) {
     response.status(error.statusCode).send({
       success: false,
-      message: error.message,
+      message: error.message || null,
+      details: error.details || null,
     });
   } else {
     response.status(500).json({
