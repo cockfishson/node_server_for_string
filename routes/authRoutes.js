@@ -8,7 +8,7 @@ router.post("/refresh", asyncMiddleware(AuthController.refreshToken));
 router.post(
   "/signup",
   signupMiddleware,
-  asyncMiddleware(AuthController.signup)
+  asyncMiddleware(AuthController.signup),
 );
 
 export default router;

@@ -20,14 +20,14 @@ const signupSchema = z
       .regex(/[0-9]/, "Password must contain at least one number")
       .regex(
         /[`!@#$%^&*()_\-+={}[\];':"|,.<>/?~]/,
-        "Password must contain at least one special character"
+        "Password must contain at least one special character",
       ),
     confirmPassword: z.string().nonempty("Password confirmation is required"),
     firstName: z.string().min(3, "First name should be 3 symbols or more"),
     lastName: z.string().min(3, "Last name should be 3 symbols or more"),
     age: z.preprocess(
       (val) => parseInt(val, 10),
-      z.number().gt(0, "Age must be greater than 0")
+      z.number().gt(0, "Age must be greater than 0"),
     ),
   })
   .superRefine((data, ctx) => {
