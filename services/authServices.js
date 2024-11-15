@@ -48,16 +48,14 @@ export class authServices {
       throw new CustomError(HttpStatus.BAD_REQUEST, {
         username: "User with this username already exists",
       });
-    } else {
-      const newUser = await User.create({
-        username: username.toString(),
-        password: password.toString(),
-        first_name: name.toString(),
-        last_name: surname.toString(),
-        age: age.toString(),
-      });
-
-      return newUser;
     }
+    const newUser = await User.create({
+      username: username.toString(),
+      password: password.toString(),
+      first_name: name.toString(),
+      last_name: surname.toString(),
+      age: age.toString(),
+    });
+    return newUser;
   };
 }
