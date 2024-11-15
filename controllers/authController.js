@@ -4,12 +4,11 @@ import { HttpStatus } from "../helpers/error_handlers/responseErrorCodes.js";
 import { JwtService } from "../services/jwtServices.js";
 
 export class AuthController {
-  // eslint-disable-next-line no-unused-vars
-  static login = async (req, res, next) => {
+  static login = async (req, res) => {
     const { username, password } = req.body;
     const { accessToken, refreshToken } = await authServices.authenticateUser(
       username,
-      password,
+      password
     );
 
     res.status(200).json({
@@ -23,7 +22,7 @@ export class AuthController {
     if (!refreshToken) {
       throw new CustomError(
         HttpStatus.UNAUTHORIZED,
-        "Refresh Token is required",
+        "Refresh Token is required"
       );
     }
     const decoded = JwtService.verifyRefresh(refreshToken);
@@ -31,8 +30,7 @@ export class AuthController {
     res.status(200).json({ accessToken });
   };
 
-  // eslint-disable-next-line no-unused-vars
-  static signup = async (req, res, next) => {
+  static signup = async (req, res) => {
     const {
       username,
       password,
@@ -41,14 +39,15 @@ export class AuthController {
       lastName: surname,
       age,
     } = req.body;
-    await authServices.signupUser(
+
+    await authServices.signupUser({
       username,
       password,
       confirmPassword,
       name,
       surname,
       age,
-    );
+    });
     res.status(200).json({ success: true });
   };
 }
